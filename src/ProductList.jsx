@@ -8,9 +8,7 @@ function ProductList({ onHomeClick }) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
 
-  const [addedToCart, setAddedToCart] = useState({});
   const [showCart, setShowCart] = useState(false);
-  const [showPlants, setShowPlants] = useState(false);
 
   const plantsArray = [
     {
@@ -33,24 +31,6 @@ function ProductList({ onHomeClick }) {
           image: "https://cdn.pixabay.com/photo/2019/06/12/14/14/peace-lilies-4269365_1280.jpg",
           description: "Removes mold spores and purifies the air.",
           cost: "$18"
-        },
-        {
-          name: "Boston Fern",
-          image: "https://cdn.pixabay.com/photo/2020/04/30/19/52/boston-fern-5114414_1280.jpg",
-          description: "Adds humidity to the air and removes toxins.",
-          cost: "$20"
-        },
-        {
-          name: "Rubber Plant",
-          image: "https://cdn.pixabay.com/photo/2020/02/15/11/49/flower-4850729_1280.jpg",
-          description: "Easy to care for and effective at removing toxins.",
-          cost: "$17"
-        },
-        {
-          name: "Aloe Vera",
-          image: "https://cdn.pixabay.com/photo/2018/04/02/07/42/leaf-3283175_1280.jpg",
-          description: "Purifies the air and has healing properties for skin.",
-          cost: "$14"
         }
       ]
     },
@@ -68,71 +48,6 @@ function ProductList({ onHomeClick }) {
           image: "https://images.unsplash.com/photo-1592729645009-b96d1e63d14b?q=80&w=1170&auto=format&fit=crop",
           description: "Sweet fragrance, promotes relaxation.",
           cost: "$18"
-        },
-        {
-          name: "Rosemary",
-          image: "https://cdn.pixabay.com/photo/2019/10/11/07/12/rosemary-4541241_1280.jpg",
-          description: "Invigorating scent, often used in cooking.",
-          cost: "$15"
-        },
-        {
-          name: "Mint",
-          image: "https://cdn.pixabay.com/photo/2016/01/07/18/16/mint-1126282_1280.jpg",
-          description: "Refreshing aroma, used in teas and cooking.",
-          cost: "$12"
-        },
-        {
-          name: "Lemon Balm",
-          image: "https://cdn.pixabay.com/photo/2019/09/16/07/41/balm-4480134_1280.jpg",
-          description: "Citrusy scent, relieves stress and promotes sleep.",
-          cost: "$14"
-        },
-        {
-          name: "Hyacinth",
-          image: "https://cdn.pixabay.com/photo/2019/04/07/20/20/hyacinth-4110726_1280.jpg",
-          description: "Beautiful flowering plant known for its fragrance.",
-          cost: "$22"
-        }
-      ]
-    },
-    {
-      category: "Medicinal Plants",
-      plants: [
-        {
-          name: "Echinacea",
-          image: "https://cdn.pixabay.com/photo/2014/12/05/03/53/echinacea-557477_1280.jpg",
-          description: "Boosts immune system, helps fight colds.",
-          cost: "$16"
-        },
-        {
-          name: "Peppermint",
-          image: "https://cdn.pixabay.com/photo/2017/07/12/12/23/peppermint-2496773_1280.jpg",
-          description: "Relieves digestive issues and headaches.",
-          cost: "$13"
-        },
-        {
-          name: "Chamomile",
-          image: "https://cdn.pixabay.com/photo/2016/08/19/19/48/flowers-1606041_1280.jpg",
-          description: "Soothes anxiety and promotes sleep.",
-          cost: "$15"
-        },
-        {
-          name: "Calendula",
-          image: "https://cdn.pixabay.com/photo/2019/07/15/18/28/flowers-4340127_1280.jpg",
-          description: "Heals wounds and soothes skin irritations.",
-          cost: "$12"
-        },
-        {
-          name: "Aloe Vera Medicinal",
-          image: "https://cdn.pixabay.com/photo/2018/04/02/07/42/leaf-3283175_1280.jpg",
-          description: "Soothing gel used for skin ailments.",
-          cost: "$14"
-        },
-        {
-          name: "Lemon Balm Medicinal",
-          image: "https://cdn.pixabay.com/photo/2019/09/16/07/41/balm-4480134_1280.jpg",
-          description: "Calms nerves and promotes relaxation.",
-          cost: "$14"
         }
       ]
     }
@@ -140,10 +55,10 @@ function ProductList({ onHomeClick }) {
 
   const handleAddToCart = (plant) => {
     dispatch(addItem(plant));
-    setAddedToCart({
-      ...addedToCart,
-      [plant.name]: true,
-    });
+  };
+
+  const isInCart = (plantName) => {
+    return cartItems.some((item) => item.name === plantName);
   };
 
   const handleHomeClick = (e) => {
@@ -154,48 +69,37 @@ function ProductList({ onHomeClick }) {
   const handleCartClick = (e) => {
     e.preventDefault();
     setShowCart(true);
-    setShowPlants(false);
-  };
-
-  const handlePlantsClick = (e) => {
-    e.preventDefault();
-    setShowPlants(true);
-    setShowCart(false);
   };
 
   const handleContinueShopping = (e) => {
     e.preventDefault();
     setShowCart(false);
-    setShowPlants(true);
   };
 
   const calculateTotalQuantity = () => {
-    return cartItems
-      ? cartItems.reduce((total, item) => total + item.quantity, 0)
-      : 0;
+    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  };
+
+  const styleObjUl = {
+    display: "flex",
+    alignItems: "center",
+    gap: "20px"
   };
 
   const styleObj = {
     backgroundColor: "#4CAF50",
     color: "#fff",
-    padding: "15px",
+    padding: "15px 30px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    fontSize: "20px",
-  };
-
-  const styleObjUl = {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "1100px",
+    fontSize: "20px"
   };
 
   const styleA = {
     color: "white",
     fontSize: "30px",
-    textDecoration: "none",
+    textDecoration: "none"
   };
 
   return (
@@ -217,28 +121,26 @@ function ProductList({ onHomeClick }) {
         </div>
 
         <div style={styleObjUl}>
-          <div>
-            <a href="#" onClick={handlePlantsClick} style={styleA}>
-              Plants
-            </a>
-          </div>
-          <div>
-            <a href="#" onClick={handleCartClick} style={styleA}>
-              <h1 className="cart">
-                Cart ({calculateTotalQuantity()})
-              </h1>
-            </a>
-          </div>
+          <a href="#" onClick={handleCartClick} style={styleA}>
+            <div className="cart">
+              🛒
+              {calculateTotalQuantity() > 0 && (
+                <span className="cart-badge">
+                  {calculateTotalQuantity()}
+                </span>
+              )}
+            </div>
+          </a>
         </div>
       </div>
 
       {!showCart ? (
         <div>
           {plantsArray.map((categoryItem) => (
-             <div className="category-section" key={categoryItem.category}>
-             <h2 className="category-title">{categoryItem.category}</h2>
+            <div className="category-section" key={categoryItem.category}>
+              <h2 className="category-title">{categoryItem.category}</h2>
 
-                 <div className="product-grid">
+              <div className="product-grid">
                 {categoryItem.plants.map((plant) => (
                   <div className="plant-card" key={plant.name}>
                     <img src={plant.image} alt={plant.name} />
@@ -247,10 +149,12 @@ function ProductList({ onHomeClick }) {
                     <p>{plant.cost}</p>
 
                     <button
-                      disabled={addedToCart[plant.name]}
+                      disabled={isInCart(plant.name)}
                       onClick={() => handleAddToCart(plant)}
                     >
-                      {addedToCart[plant.name] ? "Added to Cart" : "Add to Cart"}
+                      {isInCart(plant.name)
+                        ? "Added to Cart"
+                        : "Add to Cart"}
                     </button>
                   </div>
                 ))}

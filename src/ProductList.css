@@ -111,3 +111,59 @@
     display: inline-block;
     padding-bottom: 5px;
   }
+  /* ===============================
+   Cart Badge
+   =============================== */
+
+.cart {
+    position: relative;
+    font-size: 32px;
+    cursor: pointer;
+  }
+  
+  .cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* ===============================
+   Navbar Layout Fix
+   =============================== */
+
+.navbar {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .tag {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: auto;
+  }
+  
+  .luxury {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: auto;
+    font-size: 19px;
+  }
+  
+  .cart {
+    position: relative;
+    font-size: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
