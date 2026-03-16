@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import ProductList from './components/ProductList';
+import ProductList from './ProductList';
 import './App.css';
-import AboutUs from './components/AboutUs';
+import AboutUs from './AboutUs';
 
 function App() {
   const [showProductList, setShowProductList] = useState(false);
