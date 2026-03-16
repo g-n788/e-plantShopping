@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem } from "../redux/CartSlice";
+import { addItem } from "./CartSlice";
 import CartItem from "./CartItem";
+import "./ProductList.css";
 
 function ProductList({ onHomeClick }) {
   const dispatch = useDispatch();
@@ -234,10 +235,10 @@ function ProductList({ onHomeClick }) {
       {!showCart ? (
         <div>
           {plantsArray.map((categoryItem) => (
-            <div key={categoryItem.category}>
-              <h2>{categoryItem.category}</h2>
+             <div className="category-section" key={categoryItem.category}>
+             <h2 className="category-title">{categoryItem.category}</h2>
 
-              <div className="product-grid">
+                 <div className="product-grid">
                 {categoryItem.plants.map((plant) => (
                   <div className="plant-card" key={plant.name}>
                     <img src={plant.image} alt={plant.name} />
